@@ -500,8 +500,22 @@ const GCLOUD_TTS_KEY = 'AIzaSyBLnu9xtZvpZlmgX8dS6SS94HZAUQEm4ZQ';
 const TTS_CACHE = {};
 let currentAudio = null;
 
+const KO_VOICES = [
+  { name: 'ko-KR-Neural2-A', gender: 'FEMALE' },
+  { name: 'ko-KR-Neural2-B', gender: 'FEMALE' },
+  { name: 'ko-KR-Neural2-C', gender: 'MALE' },
+  { name: 'ko-KR-Wavenet-A', gender: 'FEMALE' },
+  { name: 'ko-KR-Wavenet-B', gender: 'FEMALE' },
+  { name: 'ko-KR-Wavenet-C', gender: 'MALE' },
+  { name: 'ko-KR-Wavenet-D', gender: 'MALE' },
+];
+
+function randomVoice() {
+  return KO_VOICES[Math.floor(Math.random() * KO_VOICES.length)];
+}
+
 async function speak(text) {
-  // If same audio is playing, stop it
+  // If audio is playing, stop it
   if (currentAudio && !currentAudio.paused) {
     currentAudio.pause();
     currentAudio.currentTime = 0;
@@ -509,12 +523,8 @@ async function speak(text) {
     return;
   }
 
-  // Check cache first
-  if (TTS_CACHE[text]) {
-    currentAudio = new Audio(TTS_CACHE[text]);
-    currentAudio.play();
-    return;
-  }
+  // Random voice each time — no cache so she hears different voices
+  const voice = randomVoice();
 
   try {
     const res = await fetch(
@@ -524,7 +534,7 @@ async function speak(text) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           input: { text },
-          voice: { languageCode: 'ko-KR', name: 'ko-KR-Neural2-A', ssmlGender: 'FEMALE' },
+          voice: { languageCode: 'ko-KR', name: voice.name, ssmlGender: voice.gender },
           audioConfig: { audioEncoding: 'MP3', speakingRate: 0.9, pitch: 0 }
         })
       }
