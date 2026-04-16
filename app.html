@@ -498,12 +498,21 @@ function toast(msg) {
 
 const GCLOUD_TTS_KEY = 'AIzaSyBLnu9xtZvpZlmgX8dS6SS94HZAUQEm4ZQ';
 const TTS_CACHE = {};
+let currentAudio = null;
 
 async function speak(text) {
+  // If same audio is playing, stop it
+  if (currentAudio && !currentAudio.paused) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+    currentAudio = null;
+    return;
+  }
+
   // Check cache first
   if (TTS_CACHE[text]) {
-    const audio = new Audio(TTS_CACHE[text]);
-    audio.play();
+    currentAudio = new Audio(TTS_CACHE[text]);
+    currentAudio.play();
     return;
   }
 
@@ -524,17 +533,15 @@ async function speak(text) {
     if (data.audioContent) {
       const audioUrl = 'data:audio/mp3;base64,' + data.audioContent;
       TTS_CACHE[text] = audioUrl;
-      const audio = new Audio(audioUrl);
-      audio.play();
+      currentAudio = new Audio(audioUrl);
+      currentAudio.play();
     } else {
-      // Fallback to browser TTS
       const u = new SpeechSynthesisUtterance(text);
       u.lang = 'ko-KR';
       u.rate = 0.85;
       speechSynthesis.speak(u);
     }
   } catch (e) {
-    // Fallback to browser TTS on error
     const u = new SpeechSynthesisUtterance(text);
     u.lang = 'ko-KR';
     u.rate = 0.85;
@@ -740,8 +747,7 @@ function renderPatternPage() {
       <div style="font-size:.9rem;color:var(--accent-light);margin-bottom:12px">${p.ja}</div>
       <div style="font-size:.9rem;color:var(--text);margin-bottom:4px">${p.ex_ko}</div>
       <div style="font-size:.8rem;color:var(--dim);margin-bottom:12px">${p.ex_ja}</div>
-      <button class="play-btn" onclick="speak('${p.ex_ko.replace(/'/g,"\\'")}')">&#x1F50A; 聴く</button>
-      <button class="play-btn" style="background:var(--pink)" onclick="speak('${p.ex_ko.replace(/'/g,"\\'")}');setTimeout(()=>speak('${p.ex_ko.replace(/'/g,"\\'")}'),4000)">&#x1F501; 2回聴く</button>
+      <button class="play-btn" onclick="speak('${p.ex_ko.replace(/'/g,"\\'")}')">&#x1F50A; 聴く / 止める</button>
     </div>`).join('');
 }
 
