@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOPIK 6級 ロードマップ → 6月13日</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Segoe UI', sans-serif;
+    background: #0f0f1a;
+    color: #e0e0e0;
+    padding: 24px;
+    min-height: 100vh;
+  }
+  h1 {
+    text-align: center;
+    font-size: 1.6rem;
+    margin-bottom: 4px;
+    color: #fff;
+  }
+  .subtitle {
+    text-align: center;
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 32px;
+  }
+  .subtitle span { color: #ff6b6b; font-weight: 600; }
+
+  .countdown {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+  .countdown-box {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 16px 24px;
+    text-align: center;
+    min-width: 80px;
+  }
+  .countdown-box .num {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ff6b6b;
+  }
+  .countdown-box .label {
+    font-size: 0.75rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .timeline {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, #6c5ce7, #fd79a8, #ff6b6b);
+    transform: translateX(-50%);
+  }
+
+  .phase {
+    position: relative;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: flex-start;
+  }
+  .phase:nth-child(odd) { flex-direction: row; }
+  .phase:nth-child(even) { flex-direction: row-reverse; }
+
+  .phase-dot {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 3px solid #6c5ce7;
+    background: #0f0f1a;
+    z-index: 2;
+    top: 20px;
+  }
+  .phase.active .phase-dot {
+    background: #6c5ce7;
+    box-shadow: 0 0 12px rgba(108, 92, 231, 0.6);
+  }
+
+  .phase-card {
+    width: 42%;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    border: 1px solid #2a2a4a;
+    border-radius: 14px;
+    padding: 20px;
+    transition: transform 0.2s;
+  }
+  .phase:nth-child(odd) .phase-card { margin-right: auto; margin-left: 0; }
+  .phase:nth-child(even) .phase-card { margin-left: auto; margin-right: 0; }
+  .phase-card:hover { transform: translateY(-2px); }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .phase-icon {
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+  .phase-dates {
+    font-size: 0.75rem;
+    color: #888;
+    margin-bottom: 2px;
+  }
+  .phase-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .phase-body {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: #bbb;
+  }
+  .phase-body ul { list-style: none; padding: 0; }
+  .phase-body li {
+    padding: 3px 0;
+    padding-left: 18px;
+    position: relative;
+  }
+  .phase-body li::before {
+    content: '\2192';
+    position: absolute;
+    left: 0;
+    color: #6c5ce7;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-top: 8px;
+    margin-right: 4px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .tag-output { background: rgba(108, 92, 231, 0.2); color: #a29bfe; border: 1px solid rgba(108, 92, 231, 0.3); }
+  .tag-fluency { background: rgba(253, 121, 168, 0.2); color: #fd79a8; border: 1px solid rgba(253, 121, 168, 0.3); }
+  .tag-topik { background: rgba(255, 107, 107, 0.2); color: #ff6b6b; border: 1px solid rgba(255, 107, 107, 0.3); }
+  .tag-input { background: rgba(0, 206, 209, 0.2); color: #00ced1; border: 1px solid rgba(0, 206, 209, 0.3); }
+  .tag-done { background: rgba(0, 184, 148, 0.2); color: #00b894; border: 1px solid rgba(0, 184, 148, 0.3); }
+
+  /* weekly bars */
+  .weekly-section {
+    max-width: 900px;
+    margin: 48px auto 0;
+  }
+  .weekly-section h2 {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #fff;
+  }
+  .week-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    gap: 10px;
+  }
+  .week-label {
+    width: 70px;
+    font-size: 0.8rem;
+    color: #888;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .week-bar-container {
+    flex: 1;
+    display: flex;
+    height: 28px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #1a1a2e;
+  }
+  .bar-segment {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .bar-output { background: #6c5ce7; }
+  .bar-fluency { background: #fd79a8; }
+  .bar-topik { background: #ff6b6b; }
+  .bar-input { background: #00ced1; }
+
+  .legend {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: #888;
+  }
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+  }
+
+  /* daily schedule */
+  .daily-section {
+    max-width: 900px;
+    margin: 48px auto 0;
+  }
+  .daily-section h2 {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    color: #fff;
+  }
+  .daily-sub {
+    text-align: center;
+    color: #888;
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+  }
+  .schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .schedule-table th {
+    background: #1a1a2e;
+    color: #888;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid #2a2a4a;
+  }
+  .schedule-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #1a1a2e;
+    font-size: 0.85rem;
+    vertical-align: top;
+  }
+  .schedule-table tr:hover { background: rgba(108, 92, 231, 0.05); }
+  .time-col { color: #888; font-family: monospace; white-space: nowrap; width: 110px; }
+  .strand-col { width: 80px; }
+  .strand-badge {
+    font-size: 0.65rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  .strand-output { background: rgba(108,92,231,0.2); color: #a29bfe; }
+  .strand-fluency { background: rgba(253,121,168,0.2); color: #fd79a8; }
+  .strand-input { background: rgba(0,206,209,0.2); color: #00ced1; }
+  .strand-topik { background: rgba(255,107,107,0.2); color: #ff6b6b; }
+  .strand-rest { background: rgba(100,100,100,0.2); color: #888; }
+
+  /* motivation */
+  .motivation {
+    max-width: 900px;
+    margin: 48px auto 0;
+    background: linear-gradient(135deg, #1b1b2e, #162e1e);
+    border: 1px solid rgba(0, 184, 148, 0.3);
+    border-radius: 14px;
+    padding: 24px;
+    text-align: center;
+  }
+  .motivation h2 {
+    color: #00b894;
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+  .motivation p {
+    font-size: 0.9rem;
+    color: #bbb;
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .motivation .big {
+    font-size: 1.3rem;
+    color: #fff;
+    font-weight: 700;
+    margin: 16px 0 8px;
+  }
+
+  /* danger zone */
+  .danger-zone {
+    max-width: 900px;
+    margin: 48px auto 0;
+    background: linear-gradient(135deg, #2d1b1b, #1a1a2e);
+    border: 1px solid #ff6b6b33;
+    border-radius: 14px;
+    padding: 24px;
+  }
+  .danger-zone h2 {
+    color: #ff6b6b;
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+  .danger-zone ul { list-style: none; padding: 0; }
+  .danger-zone li {
+    padding: 6px 0;
+    font-size: 0.85rem;
+    color: #ccc;
+    padding-left: 22px;
+    position: relative;
+  }
+  .danger-zone li::before {
+    content: '\26A0';
+    position: absolute;
+    left: 0;
+  }
+
+  .exam-day {
+    max-width: 900px;
+    margin: 40px auto;
+    text-align: center;
+    padding: 32px;
+    background: linear-gradient(135deg, #2d1b2d, #1a1a2e);
+    border: 2px solid #ff6b6b;
+    border-radius: 16px;
+  }
+  .exam-day .date {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #ff6b6b;
+  }
+  .exam-day .msg {
+    color: #bbb;
+    font-size: 0.9rem;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 700px) {
+    body { padding: 16px; }
+    .timeline::before { left: 20px; }
+    .phase { flex-direction: row !important; padding-left: 48px; }
+    .phase-dot { left: 20px !important; }
+    .phase-card { width: 100% !important; margin: 0 !important; }
+    .countdown { gap: 8px; }
+    .countdown-box { padding: 12px 16px; min-width: 65px; }
+    .countdown-box .num { font-size: 1.5rem; }
+    .schedule-table { font-size: 0.8rem; }
+    .schedule-table td, .schedule-table th { padding: 8px 6px; }
+  }
+</style>
+</head>
+<body>
+
+<h1>TOPIK 6級 ロードマップ</h1>
+<p class="subtitle">4月16日 → <span>6月13日 試験日</span> &nbsp;|&nbsp; 文法パターン 207個 &nbsp;|&nbsp; アウトプット重視</p>
+
+<div class="countdown" id="countdown">
+  <div class="countdown-box"><div class="num" id="cd-weeks">8</div><div class="label">週間</div></div>
+  <div class="countdown-box"><div class="num" id="cd-days">58</div><div class="label">日</div></div>
+  <div class="countdown-box"><div class="num" id="cd-cycles">2</div><div class="label">サイクル</div></div>
+  <div class="countdown-box"><div class="num" id="cd-patterns">207</div><div class="label">パターン</div></div>
+</div>
+
+<!-- TIMELINE -->
+<div class="timeline">
+
+  <div class="phase active">
+    <div class="phase-dot"></div>
+    <div class="phase-card">
+      <div class="phase-header">
+        <div class="phase-icon" style="background:rgba(0,184,148,0.15);">&#10003;</div>
+        <div>
+          <div class="phase-dates">完了 &#8212; 4月11&#x2013;16日</div>
+          <div class="phase-title">基盤構築</div>
+        </div>
+      </div>
+      <div class="phase-body">
+        <ul>
+          <li>207パターンをタグ付け（場面・TOPIK級・頻度）</li>
+          <li>Quizlet ティア1&#x2013;4（韓&#x2192;日：認識方向）</li>
+          <li>逆引きQuizlet ティア1&#x2013;2（日&#x2192;韓：産出方向）</li>
+          <li>30日ローテーション（1日3パターン &times; 27日 = 全パターン1周）</li>
+          <li>産出ドリル・4/3/2スピーキング・AIチャットプロトコル</li>
+          <li>過去問2周分 完了済み</li>
+        </ul>
+        <span class="tag tag-done">完了</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase active">
+    <div class="phase-dot"></div>
+    <div class="phase-card">
+      <div class="phase-header">
+        <div class="phase-icon" style="background:rgba(108,92,231,0.15);">&#x1F50A;</div>
+        <div>
+          <div class="phase-dates">4/16 &#x2013; 4/30（第1&#x2013;2週）</div>
+          <div class="phase-title">活性化 &#8212; サイクル1</div>
+        </div>
+      </div>
+      <div class="phase-body">
+        <ul>
+          <li>毎日ローテーション開始：1日3パターン（Day 1&#x2013;14）</li>
+          <li>逆引きQuizlet 朝+夜（日&#x2192;韓：声に出して答える！）</li>
+          <li>AIチャット45分/日 &#8212; 指定パターンを会話で使う</li>
+          <li>4/3/2録音 毎日 &#8212; 話す自動化を鍛える</li>
+          <li>韓国語日記：1日3パターン使用ノルマ</li>
+        </ul>
+        <span class="tag tag-output">産出 35%</span>
+        <span class="tag tag-fluency">流暢さ 40%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-dot"></div>
+    <div class="phase-card">
+      <div class="phase-header">
+        <div class="phase-icon" style="background:rgba(253,121,168,0.15);">&#x26A1;</div>
+        <div>
+          <div class="phase-dates">5/1 &#x2013; 5/14（第3&#x2013;4週）</div>
+          <div class="phase-title">深化 &#8212; サイクル1完了</div>
+        </div>
+      </div>
+      <div class="phase-body">
+        <ul>
+          <li>ローテーション Day 15&#x2013;27 &#x2192; 全81パターン1周目完了</li>
+          <li>エビングハウス復習：Day 1のパターンが14日後レビューに</li>
+          <li>AIチャットの難易度UP：フォーマルな場面に限定</li>
+          <li>ティア1正答率&gt;80%なら &#x2192; ティア2に移行</li>
+          <li>産出ドリル：回答時間を10秒&#x2192;7秒に短縮</li>
+          <li>土曜：쓰기54番（TOPIK作文・長文エッセイ）練習</li>
+        </ul>
+        <span class="tag tag-fluency">流暢さ 45%</span>
+        <span class="tag tag-output">産出 30%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-dot"></div>
+    <div class="phase-card">
+      <div class="phase-header">
+        <div class="phase-icon" style="background:rgba(255,107,107,0.15);">&#x1F3AF;</div>
+        <div>
+          <div class="phase-dates">5/15 &#x2013; 5/28（第5&#x2013;6週）</div>
+          <div class="phase-title">研磨 &#8212; サイクル2 + TOPIK集中</div>
+        </div>
+      </div>
+      <div class="phase-body">
+        <ul>
+          <li>サイクル2開始：同じ3パターン/日、今度は想起優先</li>
+          <li>TOPIK対策ブロック増加：60分&#x2192;90分/日</li>
+          <li>弱点集中：듣기 + 쓰기（最もROIが高い）</li>
+          <li>産出ドリル速度：7秒&#x2192;5秒目標</li>
+          <li>4/3/2 &#x2192; 3/2/1に圧縮（速くなっているはず）</li>
+          <li>土曜：本番同様の模擬試験（時間厳守・休憩なし）</li>
+        </ul>
+        <span class="tag tag-topik">TOPIK対策 25%</span>
+        <span class="tag tag-fluency">流暢さ 35%</span>
+        <span class="tag tag-output">産出 25%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-dot"></div>
+    <div class="phase-card">
+      <div class="phase-header">
+        <div class="phase-icon" style="background:rgba(255,200,55,0.15);">&#x1F525;</div>
+        <div>
+          <div class="phase-dates">5/29 &#x2013; 6/5（第7週）</div>
+          <div class="phase-title">ピーク &#8212; 模擬試験週間</div>
+        </div>
+      </div>
+      <div class="phase-body">
+        <ul>
+          <li>模擬試験2回（水+土、厳密な時間管理で）</li>
+          <li>模試の間違いを分析 &#x2192; 弱点パターンを逆引きQuizletに追加</li>
+          <li>新しいパターンはなし &#8212; 想起とスピードだけ</li>
+          <li>AIチャット：말하기面接シミュレーション</li>
+          <li>日課は維持、「新規インプット」は外して集中</li>
+        </ul>
+        <span class="tag tag-topik">TOPIK模試 35%</span>
+        <span class="tag tag-fluency">流暢さ 40%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-dot"></div>
+    <div class="phase-card">
+      <div class="phase-header">
+        <div class="phase-icon" style="background:rgba(0,206,209,0.15);">&#x1F9CA;</div>
+        <div>
+          <div class="phase-dates">6/6 &#x2013; 6/12（第8週）</div>
+          <div class="phase-title">テーパリング &#8212; クールダウン</div>
+        </div>
+      </div>
+      <div class="phase-body">
+        <ul>
+          <li>勉強量を30%減らす &#8212; 試験前のバーンアウト防止</li>
+          <li>軽い復習のみ：弱点デッキをさらっと確認</li>
+          <li>最後の4/3/2録音 &#8212; 第1週の録音と比較してみよう</li>
+          <li>6/11（木）：最後の軽い復習、そこで終了</li>
+          <li>6/12（金）：休息、持ち物準備、早く寝る</li>
+          <li>詰め込みはしない &#8212; 7週間のアウトプットを信じて</li>
+        </ul>
+        <span class="tag tag-input">軽い復習</span>
+        <span class="tag tag-topik">自信を持って</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="exam-day">
+  <div class="date">6月13日 &#8212; TOPIK 本番</div>
+  <div class="msg">207パターン完了。2サイクル達成。アウトプット準備OK。</div>
+</div>
+
+<!-- WEEKLY MIX -->
+<div class="weekly-section">
+  <h2>週ごとの重点配分</h2>
+
+  <div class="week-row">
+    <div class="week-label">第1-2週</div>
+    <div class="week-bar-container">
+      <div class="bar-segment bar-output" style="width:35%">産出 35%</div>
+      <div class="bar-segment bar-fluency" style="width:40%">流暢さ 40%</div>
+      <div class="bar-segment bar-input" style="width:15%">入力 15%</div>
+      <div class="bar-segment bar-topik" style="width:10%">TOPIK</div>
+    </div>
+  </div>
+  <div class="week-row">
+    <div class="week-label">第3-4週</div>
+    <div class="week-bar-container">
+      <div class="bar-segment bar-output" style="width:30%">産出 30%</div>
+      <div class="bar-segment bar-fluency" style="width:45%">流暢さ 45%</div>
+      <div class="bar-segment bar-input" style="width:10%">入力</div>
+      <div class="bar-segment bar-topik" style="width:15%">TOPIK</div>
+    </div>
+  </div>
+  <div class="week-row">
+    <div class="week-label">第5-6週</div>
+    <div class="week-bar-container">
+      <div class="bar-segment bar-output" style="width:25%">産出 25%</div>
+      <div class="bar-segment bar-fluency" style="width:35%">流暢さ 35%</div>
+      <div class="bar-segment bar-input" style="width:5%"></div>
+      <div class="bar-segment bar-topik" style="width:35%">TOPIK 35%</div>
+    </div>
+  </div>
+  <div class="week-row">
+    <div class="week-label">第7週</div>
+    <div class="week-bar-container">
+      <div class="bar-segment bar-output" style="width:15%"></div>
+      <div class="bar-segment bar-fluency" style="width:40%">流暢さ 40%</div>
+      <div class="bar-segment bar-input" style="width:5%"></div>
+      <div class="bar-segment bar-topik" style="width:40%">TOPIK模試</div>
+    </div>
+  </div>
+  <div class="week-row">
+    <div class="week-label">第8週</div>
+    <div class="week-bar-container">
+      <div class="bar-segment bar-output" style="width:10%"></div>
+      <div class="bar-segment bar-fluency" style="width:20%">軽め</div>
+      <div class="bar-segment bar-input" style="width:10%">休息</div>
+      <div class="bar-segment bar-topik" style="width:20%">復習</div>
+      <div class="bar-segment" style="width:40%; background:#2a2a4a; color:#666;">テーパー</div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#6c5ce7;"></div>産出（アウトプット）</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#fd79a8;"></div>流暢さ（スピード・想起）</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#00ced1;"></div>入力（読む・聴く）</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#ff6b6b;"></div>TOPIK対策</div>
+  </div>
+</div>
+
+<!-- DAILY SCHEDULE -->
+<div class="daily-section">
+  <h2>平日スケジュール（月&#x2013;金）</h2>
+  <p class="daily-sub">勉強時間 約5時間45分 &#8212; アウトプット+流暢さ = 75%</p>
+
+  <table class="schedule-table">
+    <thead>
+      <tr><th>時間</th><th>カテゴリ</th><th>内容</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="time-col">06:00&#x2013;06:15</td>
+        <td class="strand-col"><span class="strand-badge strand-input">学習</span></td>
+        <td>今日の3パターン確認。声に出して例文を1つずつ言う</td>
+      </tr>
+      <tr>
+        <td class="time-col">06:15&#x2013;06:30</td>
+        <td class="strand-col"><span class="strand-badge strand-output">産出</span></td>
+        <td><strong>逆引きQuizlet</strong> &#8212; 日&#x2192;韓方向のみ。必ず声に出す！</td>
+      </tr>
+      <tr>
+        <td class="time-col">通学中</td>
+        <td class="strand-col"><span class="strand-badge strand-input">入力</span></td>
+        <td>韓国語ポッドキャスト（約20分）</td>
+      </tr>
+      <tr>
+        <td class="time-col">09:00&#x2013;13:00</td>
+        <td class="strand-col"><span class="strand-badge strand-rest">&#x2014;</span></td>
+        <td>学校</td>
+      </tr>
+      <tr>
+        <td class="time-col">13:00&#x2013;14:00</td>
+        <td class="strand-col"><span class="strand-badge strand-input">入力</span></td>
+        <td>昼食 + 韓国ドラマ（韓国語字幕付き）</td>
+      </tr>
+      <tr>
+        <td class="time-col">14:00&#x2013;14:45</td>
+        <td class="strand-col"><span class="strand-badge strand-output">産出</span></td>
+        <td><strong>AIチャット</strong> &#8212; 今日の3パターンを使って会話。最後15分はボイスモード</td>
+      </tr>
+      <tr>
+        <td class="time-col">14:45&#x2013;15:05</td>
+        <td class="strand-col"><span class="strand-badge strand-fluency">流暢</span></td>
+        <td><strong>産出ドリル</strong> &#8212; 10&#x2013;15問、各10秒、声に出して答える</td>
+      </tr>
+      <tr>
+        <td class="time-col">15:05&#x2013;15:20</td>
+        <td class="strand-col"><span class="strand-badge strand-fluency">流暢</span></td>
+        <td><strong>4/3/2録音</strong> &#8212; 1つのテーマを4分&#x2192;3分&#x2192;2分で話す</td>
+      </tr>
+      <tr>
+        <td class="time-col">15:20&#x2013;15:50</td>
+        <td class="strand-col"><span class="strand-badge strand-fluency">流暢</span></td>
+        <td><strong>シャドーイング</strong> &#8212; ドラマ3分間。再生&#x2192;繰り返し&#x2192;録音&#x2192;比較</td>
+      </tr>
+      <tr>
+        <td class="time-col">15:50&#x2013;16:05</td>
+        <td class="strand-col"><span class="strand-badge strand-rest">&#x2014;</span></td>
+        <td>休憩</td>
+      </tr>
+      <tr>
+        <td class="time-col">16:05&#x2013;16:35</td>
+        <td class="strand-col"><span class="strand-badge strand-output">産出</span></td>
+        <td><strong>韓国語日記</strong> &#8212; 半ページ、今日の3パターン使用。AIに添削依頼</td>
+      </tr>
+      <tr>
+        <td class="time-col">16:35&#x2013;17:05</td>
+        <td class="strand-col"><span class="strand-badge strand-fluency">流暢</span></td>
+        <td>多読（既読テキストを辞書なしで速読）</td>
+      </tr>
+      <tr>
+        <td class="time-col">17:05&#x2013;18:05</td>
+        <td class="strand-col"><span class="strand-badge strand-topik">TOPIK</span></td>
+        <td>月:듣기 / 火:읽기 / 水:쓰기54 / 木:文法クローズ / 金:ミニ模試</td>
+      </tr>
+      <tr>
+        <td class="time-col">18:05&#x2013;19:00</td>
+        <td class="strand-col"><span class="strand-badge strand-input">入力</span></td>
+        <td>記事1本（ニュース/EBS）+ 単語10個をQuizletに追加</td>
+      </tr>
+      <tr>
+        <td class="time-col">20:00&#x2013;20:30</td>
+        <td class="strand-col"><span class="strand-badge strand-output">産出</span></td>
+        <td>寝る前復習：逆引きQuizlet 15分 &#x2192; 4/3/2の2分ver再生 &#x2192; 韓国語で3文書く</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- MOTIVATION -->
+<div class="motivation">
+  <h2>覚えておいてほしいこと</h2>
+  <p class="big">文法は「知っている」。あとは「使えるようにする」だけ。</p>
+  <p>
+    頭の中にある207パターンを、口と手から自動的に出てくるようにする8週間。<br>
+    新しいことを覚える必要はほとんどない。<br>
+    毎日少しずつ「声に出す」「書く」「AIと話す」を繰り返すだけ。<br><br>
+    日曜日はちゃんと休むこと。<br>
+    最後の週は詰め込まないこと。<br>
+    自分を信じて。
+  </p>
+</div>
+
+<!-- DANGER ZONE -->
+<div class="danger-zone">
+  <h2>要注意サイン</h2>
+  <ul>
+    <li><strong>逆引きQuizlet正答率が2週間後も60%未満</strong> &#8212; 頭の中で答えてない？必ず声に出して！</li>
+    <li><strong>AIチャットで自分が50語未満しか書いてない</strong> &#8212; AIに話されてるだけ。自分から話して！</li>
+    <li><strong>産出ドリルが5日間伸び悩み</strong> &#8212; そのティアは十分。次のティアへ</li>
+    <li><strong>日曜休みを2週連続でスキップ</strong> &#8212; バーンアウトの危険。必ず休む</li>
+    <li><strong>過去問をまたやりたくなる</strong> &#8212; もう2周した。新しい学びは少ない。弱点分析にだけ使う</li>
+  </ul>
+</div>
+
+<div class="exam-day">
+  <div class="date">6月13日 &#8212; TOPIK 本番</div>
+  <div class="msg">준비 완료. 할 수 있어! &#x1F4AA;</div>
+</div>
+
+<script>
+  function updateCountdown() {
+    const exam = new Date('2026-06-13T09:00:00+09:00');
+    const now = new Date();
+    const diff = exam - now;
+    const days = Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
+    const weeks = Math.max(0, Math.ceil(days / 7));
+    document.getElementById('cd-days').textContent = days;
+    document.getElementById('cd-weeks').textContent = weeks;
+    document.getElementById('cd-cycles').textContent = days >= 54 ? '2' : days >= 27 ? '1+' : '1';
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 60000);
+</script>
+
+</body>
+</html>
